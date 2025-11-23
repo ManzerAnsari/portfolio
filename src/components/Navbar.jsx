@@ -5,11 +5,20 @@ import { Menu, X } from 'lucide-react';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const currentScroll = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      
+      setScrolled(currentScroll > 50);
+      
+      if (scrollHeight > 0) {
+        setScrollProgress(currentScroll / scrollHeight);
+      }
     };
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -26,14 +35,24 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-2xl rounded-full transition-all duration-300 ${
+      className={`fixed top-6 left-[5%] md:left-1/2 md:-translate-x-1/2 z-50 w-[90%] max-w-2xl rounded-full transition-all duration-300 overflow-hidden ${
         scrolled
-          ? "bg-dark-surface/80 backdrop-blur-xl border border-white/10 shadow-2xl py-3 px-6"
+          ? "border border-white/20 shadow-lg py-3 px-6"
           : "bg-transparent py-4 px-6"
       }`}
+      style={{
+        background: scrolled 
+          ? `linear-gradient(to right, rgba(255, 255, 255, 0.95) ${scrollProgress * 100}%, rgba(255, 255, 255, 0.5) ${scrollProgress * 100}%)`
+          : 'transparent'
+      }}
     >
-      <div className="flex items-center justify-between">
-        <a href="#" className="text-2xl font-bold font-display tracking-tighter text-white">
+      {/* Glassmorphism backdrop for the unfilled part */}
+      {scrolled && (
+        <div className="absolute inset-0 -z-10 backdrop-blur-md" />
+      )}
+
+      <div className="flex items-center justify-between relative z-10">
+        <a href="#" className={`text-2xl font-bold font-display tracking-tighter transition-colors ${scrolled ? 'text-gray-800' : 'text-white'}`}>
           MA<span className="text-accent-purple">.</span>
         </a>
 
@@ -43,7 +62,7 @@ const Navbar = () => {
             <a
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-accent-secondary hover:text-white transition-colors relative group"
+              className={`text-sm font-medium transition-colors relative group ${scrolled ? 'text-gray-600 hover:text-accent-purple' : 'text-accent-secondary hover:text-white'}`}
             >
               {link.name}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-purple transition-all group-hover:w-full"></span>
@@ -51,7 +70,11 @@ const Navbar = () => {
           ))}
           <a
             href="#contact"
-            className="px-5 py-2 bg-white text-black rounded-full text-sm font-bold hover:bg-gray-200 transition-colors"
+            className={`px-5 py-2 rounded-full text-sm font-bold transition-colors ${
+              scrolled 
+                ? "bg-gray-900 text-white hover:bg-gray-700" 
+                : "bg-white text-black hover:bg-gray-200"
+            }`}
           >
             Let's Talk
           </a>
@@ -59,7 +82,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white"
+          className={`md:hidden transition-colors ${scrolled ? 'text-gray-800' : 'text-white'}`}
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -73,19 +96,26 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="absolute top-full left-0 right-0 mt-4 p-4 bg-dark-surface/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl md:hidden overflow-hidden"
+            className="absolute top-full left-0 right-0 mt-4 p-6 bg-dark-surface/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl md:hidden overflow-hidden"
           >
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-accent-secondary hover:text-white font-medium transition-colors"
+                  className="text-accent-secondary hover:text-white font-medium transition-colors py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
                 </a>
               ))}
+              <a
+                href="#contact"
+                className="px-5 py-3 bg-white text-black rounded-full text-sm font-bold hover:bg-gray-200 transition-colors text-center mt-2"
+                onClick={() => setIsOpen(false)}
+              >
+                Let's Talk
+              </a>
             </div>
           </motion.div>
         )}

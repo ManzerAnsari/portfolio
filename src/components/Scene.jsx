@@ -218,13 +218,39 @@ function AnimatedRobot() {
       );
     }
   });
+  
+  // Responsive positioning based on screen size
+  const [robotConfig, setRobotConfig] = React.useState({
+    position: [4, -1.5, 0],
+    scale: 1.15
+  });
+  
+  useEffect(() => {
+    const updateRobotPosition = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        // Mobile: center robot and make smaller
+        setRobotConfig({ position: [0, -0.5, 0], scale: 0.8 });
+      } else if (width < 1024) {
+        // Tablet: slightly right
+        setRobotConfig({ position: [2, -1, 0], scale: 1 });
+      } else {
+        // Desktop: original position
+        setRobotConfig({ position: [4, -1.5, 0], scale: 1.15 });
+      }
+    };
+    
+    updateRobotPosition();
+    window.addEventListener('resize', updateRobotPosition);
+    return () => window.removeEventListener('resize', updateRobotPosition);
+  }, []);
 
   return (
     <primitive 
       ref={group} 
       object={scene} 
-      position={[4, -1.5, 0]} 
-      scale={1.15}
+      position={robotConfig.position} 
+      scale={robotConfig.scale}
       rotation={[0, 0, 0]}
     />
   );
