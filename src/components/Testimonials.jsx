@@ -25,16 +25,23 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section className="py-20 bg-dark-bg relative">
+    <section id="testimonials" className="py-32 bg-dark-bg relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-accent-purple/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-cyan/5 rounded-full blur-3xl"></div>
+      
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4 font-display">Client Testimonials</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <h2 className="text-5xl md:text-7xl font-bold text-accent-primary mb-6 font-display tracking-tighter">
+            Client Testimonials
+          </h2>
+          <p className="text-accent-secondary max-w-2xl mx-auto text-xl font-light">
             Don't just take my word for it - here's what others have to say about working with me.
           </p>
         </motion.div>
@@ -46,21 +53,21 @@ const Testimonials = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
-              className="bg-dark-card/50 backdrop-blur-sm border border-white/5 p-8 rounded-2xl relative hover:border-accent-cyan/30 transition-colors duration-300"
+              className="bg-dark-card/60 backdrop-blur-xl border border-dark-border p-8 rounded-3xl relative hover:border-accent-cyan/40 transition-all duration-300 hover:shadow-lg hover:shadow-accent-cyan/10"
             >
-              <Quote className="absolute top-4 right-4 text-accent-cyan/20 w-12 h-12" />
+              <Quote className="absolute top-4 right-4 text-accent-cyan/30 w-12 h-12" />
               <div className="flex items-center mb-6">
                 <img
                   src={testimonial.image}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover mr-4 border-2 border-accent-cyan/20"
+                  className="w-12 h-12 rounded-full object-cover mr-4 border-2 border-accent-cyan/30"
                 />
                 <div>
-                  <h3 className="text-white font-semibold font-display">{testimonial.name}</h3>
+                  <h3 className="text-accent-primary font-semibold font-display">{testimonial.name}</h3>
                   <p className="text-accent-cyan text-sm">{testimonial.role}</p>
                 </div>
               </div>
-              <p className="text-gray-300 leading-relaxed italic">"{testimonial.content}"</p>
+              <p className="text-accent-secondary leading-relaxed italic">"{testimonial.content}"</p>
             </motion.div>
           ))}
         </div>

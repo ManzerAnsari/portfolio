@@ -1,49 +1,89 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const Cursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, {
+    stiffness: 700,
+    damping: 18,
+    mass: 0.4,
+  });
+
+  const springY = useSpring(mouseY, {
+    stiffness: 700,
+    damping: 18,
+    mass: 0.4,
+  });
+
+  const ringX = useSpring(mouseX, {
+    stiffness: 300,
+    damping: 14,
+    mass: 0.6,
+  });
+
+  const ringY = useSpring(mouseY, {
+    stiffness: 300,
+    damping: 14,
+    mass: 0.6,
+  });
+
   const [isPointer, setIsPointer] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+    const move = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
 
-    const handlePointerElements = () => {
-      const elements = document.querySelectorAll('a, button');
-      elements.forEach(el => {
-        el.addEventListener('mouseenter', () => setIsPointer(true));
-        el.addEventListener('mouseleave', () => setIsPointer(false));
-      });
+    const handlePointer = (e) => {
+      const target = e.target;
+      setIsPointer(
+        target.closest("a, button, [data-cursor='pointer']")
+      );
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    handlePointerElements();
+    window.addEventListener("mousemove", move);
+    window.addEventListener("mouseover", handlePointer);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mouseover", handlePointer);
     };
   }, []);
 
   return (
     <>
+      {/* Core dot */}
       <motion.div
-        className="fixed w-4 h-4 bg-blue-500 rounded-full pointer-events-none z-50 mix-blend-difference"
-        animate={{ x: position.x - 8, y: position.y - 8 }}
-        transition={{ type: "spring", stiffness: 500, damping: 28 }}
-      />
-      <motion.div
-        className="fixed w-8 h-8 border-2 border-blue-500 rounded-full pointer-events-none z-50"
-        animate={{
-          x: position.x - 16,
-          y: position.y - 16,
-          scale: isPointer ? 1.5 : 1,
+        className="fixed w-3 h-3 bg-blue-500 rounded-full pointer-events-none z-50 mix-blend-difference"
+        style={{
+          x: springX,
+          y: springY,
+          translateX: "-50%",
+          translateY: "-50%",
         }}
-        transition={{ type: "spring", stiffness: 250, damping: 20 }}
+      />
+
+      {/* Outer ring */}
+      <motion.div
+        className="fixed w-10 h-10 border-2 border-blue-500 rounded-full pointer-events-none z-50"
+        animate={{ scale: isPointer ? 1.6 : 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 200,
+          damping: 12,
+        }}
+        style={{
+          x: ringX,
+          y: ringY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
       />
     </>
   );
-}
+};
 
 export default Cursor;

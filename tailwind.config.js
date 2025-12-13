@@ -4,34 +4,39 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Outfit', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'],
+        sans: ['Exo 2', 'sans-serif'],
+        display: ['Exo 2', 'sans-serif'],
+        exo: ['Exo 2', 'sans-serif'],
       },
       colors: {
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          50: '#f0f4ff',
+          100: '#e0e9ff',
+          200: '#c7d5ff',
+          300: '#a5b8ff',
+          400: '#8b94ff',
+          500: '#7c7aff',
+          600: '#6d5df7',
+          700: '#5a47e8',
+          800: '#4a3bd4',
+          900: '#3f35b3',
         },
         dark: {
-          bg: '#030303', // True Black/Almost Black
-          surface: '#0A0A0A',
-          card: '#121212',
+          bg: '#0a0e1a', // Soft dark blue-gray
+          surface: '#111827', // Softer dark surface
+          card: '#1a1f2e', // Soft card background
+          border: 'rgba(255, 255, 255, 0.08)', // Softer borders
         },
         accent: {
-          purple: '#A855F7', // Refined Purple
-          cyan: '#06B6D4',   // Refined Cyan
-          pink: '#EC4899',   // Refined Pink
-          blue: '#3B82F6',
-          primary: '#FFFFFF', // High contrast text
-          secondary: '#A1A1AA', // Muted text
+          purple: '#a78bfa', // Soft lavender purple
+          cyan: '#67e8f9',   // Soft sky cyan
+          pink: '#f0abfc',   // Soft pink
+          blue: '#93c5fd',   // Soft blue
+          mint: '#6ee7b7',   // Soft mint green
+          amber: '#fbbf24',  // Soft amber
+          primary: '#f8fafc', // Soft white text
+          secondary: '#cbd5e1', // Soft gray text
+          muted: '#94a3b8', // Muted text
         }
       },
       animation: {

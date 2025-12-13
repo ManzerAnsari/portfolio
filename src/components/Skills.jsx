@@ -30,19 +30,19 @@ const SkillCard = ({ category, icon: Icon, skills, index, className }) => (
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className={`bg-dark-card/40 backdrop-blur-md border border-white/5 p-8 rounded-3xl hover:border-white/10 transition-all duration-300 group ${className}`}
+    className={`bg-dark-card/60 backdrop-blur-xl border border-dark-border p-8 rounded-3xl hover:border-accent-purple/30 transition-all duration-300 group ${className}`}
   >
     <div className="flex items-center mb-6">
-      <div className="p-3 bg-white/5 rounded-2xl mr-4 group-hover:bg-white/10 transition-colors">
-        <Icon className="w-6 h-6 text-white" />
+      <div className="p-3 bg-gradient-to-br from-accent-purple/10 to-accent-cyan/10 rounded-2xl mr-4 group-hover:from-accent-purple/20 group-hover:to-accent-cyan/20 transition-all border border-accent-purple/20">
+        <Icon className="w-6 h-6 text-accent-cyan" />
       </div>
-      <h3 className="text-2xl font-bold text-white font-display tracking-tight">{category}</h3>
+      <h3 className="text-2xl font-bold text-accent-primary font-display tracking-tight">{category}</h3>
     </div>
     <div className="flex flex-wrap gap-3">
       {skills.map((skill, idx) => (
         <span
           key={idx}
-          className="px-4 py-2 bg-white/5 text-accent-secondary rounded-lg text-sm font-medium border border-white/5 hover:bg-white/10 hover:text-white transition-all cursor-default"
+          className="px-4 py-2 bg-dark-card/40 text-accent-secondary rounded-lg text-sm font-medium border border-dark-border hover:bg-accent-purple/10 hover:text-accent-primary hover:border-accent-purple/30 transition-all cursor-default"
         >
           {skill}
         </span>
@@ -53,18 +53,23 @@ const SkillCard = ({ category, icon: Icon, skills, index, className }) => (
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-32 bg-dark-bg relative">
+    <section id="skills" className="py-32 bg-dark-bg relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-accent-cyan/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-purple/5 rounded-full blur-3xl"></div>
+      
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-20"
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 font-display tracking-tighter">
+          <h2 className="text-5xl md:text-7xl font-bold text-accent-primary mb-6 font-display tracking-tighter">
             Expertise
           </h2>
-          <p className="text-accent-secondary text-xl max-w-2xl font-light">
+          <p className="text-accent-secondary text-xl max-w-2xl mx-auto font-light">
             A curated stack of technologies I use to build digital products.
           </p>
         </motion.div>

@@ -126,12 +126,12 @@ function AnimatedRobot() {
       const randomEmote = getRandomItem(emotes);
       playEmote(randomEmote);
       
-      // Schedule next emote (10-20 seconds)
-      emoteTimerRef.current = setTimeout(triggerEmote, getRandomInterval(10000, 20000));
+      // Schedule next emote (3-6 seconds) - increased frequency
+      emoteTimerRef.current = setTimeout(triggerEmote, getRandomInterval(4000, 8000));
     };
     
-    // Schedule first emote
-    emoteTimerRef.current = setTimeout(triggerEmote, getRandomInterval(10000, 20000));
+    // Schedule first emote (start sooner)
+    emoteTimerRef.current = setTimeout(triggerEmote, getRandomInterval(3000, 6000));
     
     return () => {
       if (emoteTimerRef.current) clearTimeout(emoteTimerRef.current);
@@ -224,7 +224,7 @@ function AnimatedRobot() {
     position: [4, -1.5, 0],
     scale: 1.15
   });
-  
+
   useEffect(() => {
     const updateRobotPosition = () => {
       const width = window.innerWidth;
@@ -256,6 +256,85 @@ function AnimatedRobot() {
   );
 }
 
+function RadialGradientLights() {
+  // Create radial gradient using planes with gradient textures
+  const createGradientTexture = (color1, color2, size = 512) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    
+    const centerX = size / 2;
+    const centerY = size / 2;
+    const radius = size / 2;
+    
+    const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+    gradient.addColorStop(0, color1);
+    gradient.addColorStop(0.5, color2);
+    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
+    
+    return new THREE.CanvasTexture(canvas);
+  };
+
+  // Center soft light (cyan to purple)
+  const centerTexture = createGradientTexture(
+    'rgba(103, 232, 249, 0.4)',
+    'rgba(167, 139, 250, 0.2)'
+  );
+  
+  // Top left light (purple)
+  const topLeftTexture = createGradientTexture(
+    'rgba(167, 139, 250, 0.3)',
+    'rgba(0, 0, 0, 0)'
+  );
+  
+  // Bottom right light (cyan)
+  const bottomRightTexture = createGradientTexture(
+    'rgba(103, 232, 249, 0.3)',
+    'rgba(0, 0, 0, 0)'
+  );
+
+  return (
+    <>
+      {/* Center soft light - large plane behind robot */}
+      <mesh position={[0, 0, -5]}>
+        <planeGeometry args={[20, 20]} />
+        <meshBasicMaterial 
+          map={centerTexture} 
+          transparent 
+          opacity={0.6}
+          depthWrite={false}
+        />
+      </mesh>
+      
+      {/* Top left soft light */}
+      <mesh position={[-8, 5, -4]}>
+        <planeGeometry args={[15, 15]} />
+        <meshBasicMaterial 
+          map={topLeftTexture} 
+          transparent 
+          opacity={0.5}
+          depthWrite={false}
+        />
+      </mesh>
+      
+      {/* Bottom right soft light */}
+      <mesh position={[8, -5, -4]}>
+        <planeGeometry args={[12, 12]} />
+        <meshBasicMaterial 
+          map={bottomRightTexture} 
+          transparent 
+          opacity={0.5}
+          depthWrite={false}
+        />
+      </mesh>
+    </>
+  );
+}
+
 function GradientBackground() {
   return (
     <>
@@ -274,6 +353,64 @@ function GradientBackground() {
         <ringGeometry args={[10, 11, 32]} />
         <meshBasicMaterial color="#2255bb" transparent opacity={0.2} />
       </mesh>
+    </>
+  );
+}
+
+function RobotGlowLight() {
+  const lightRef = useRef();
+  const [robotPosition, setRobotPosition] = React.useState([4, -1.5, 0]);
+  
+  // Update position based on screen size (matching robot position logic)
+  useEffect(() => {
+    const updatePosition = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setRobotPosition([0, -0.5, 2]);
+      } else if (width < 1024) {
+        setRobotPosition([2, -1, 2]);
+      } else {
+        setRobotPosition([4, -1.5, 2]);
+      }
+    };
+    
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+    return () => window.removeEventListener('resize', updatePosition);
+  }, []);
+  
+  useFrame(() => {
+    if (lightRef.current) {
+      lightRef.current.position.set(...robotPosition);
+    }
+  });
+  
+  return (
+    <>
+      {/* Main glow light */}
+      <pointLight 
+        ref={lightRef} 
+        position={robotPosition} 
+        intensity={2} 
+        color="#67e8f9" 
+        distance={10} 
+        decay={1.5}
+      />
+      {/* Additional rim light for glow effect */}
+      <pointLight 
+        position={[robotPosition[0] + 2, robotPosition[1], robotPosition[2] + 1]} 
+        intensity={1} 
+        color="#a78bfa" 
+        distance={8} 
+        decay={2}
+      />
+      <pointLight 
+        position={[robotPosition[0] - 2, robotPosition[1], robotPosition[2] + 1]} 
+        intensity={1} 
+        color="#67e8f9" 
+        distance={8} 
+        decay={2}
+      />
     </>
   );
 }
@@ -303,8 +440,14 @@ export default function Scene() {
       <hemisphereLight args={[0xffffff, 0x8d8d8d, 3]} position={[0, 20, 0]} />
       <directionalLight args={[0xffffff, 3]} position={[0, 20, 10]} />
       
+      {/* Robot Glow Light - Follows robot position */}
+      <RobotGlowLight />
+      
       {/* Gradient background */}
-      <GradientBackground />
+      {/* <GradientBackground /> */}
+      
+      {/* Radial Gradient Soft Lights - Behind robot */}
+      <RadialGradientLights />
       
       {/* Interactive Mouse Light */}
       <MouseLight />

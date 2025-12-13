@@ -28,7 +28,7 @@ const posts = [
 
 const Blog = () => {
   return (
-    <section className="py-20 bg-gray-800">
+    <section id="blog" className="py-32 bg-dark-surface relative overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -36,8 +36,8 @@ const Blog = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4 font-display">Latest Insights</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-5xl md:text-7xl font-bold text-accent-primary mb-6 font-display tracking-tighter">Latest Insights</h2>
+          <p className="text-accent-secondary max-w-2xl mx-auto text-xl font-light">
             Thoughts, learnings, and perspectives from my journey in web development.
           </p>
         </motion.div>
@@ -49,7 +49,7 @@ const Blog = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
-              className="bg-gray-900 rounded-2xl overflow-hidden group"
+              className="bg-dark-card/60 backdrop-blur-xl border border-dark-border rounded-2xl overflow-hidden group hover:border-accent-purple/40 transition-all duration-300"
             >
               <div className="relative h-48 overflow-hidden">
                 <img
@@ -57,22 +57,23 @@ const Blog = () => {
                   alt={post.title}
                   className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-card/80 to-transparent"></div>
               </div>
               <div className="p-6">
-                <div className="flex items-center text-sm text-gray-400 mb-4">
+                <div className="flex items-center text-sm text-accent-muted mb-4">
                   <Calendar className="w-4 h-4 mr-2" />
                   <span>{post.date}</span>
                   <span className="mx-2">•</span>
                   <Clock className="w-4 h-4 mr-2" />
                   <span>{post.readTime}</span>
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-primary-400 transition-colors">
+                <h3 className="text-xl font-semibold text-accent-primary mb-2 group-hover:text-accent-cyan transition-colors">
                   {post.title}
                 </h3>
-                <p className="text-gray-400 mb-4">{post.excerpt}</p>
+                <p className="text-accent-secondary mb-4">{post.excerpt}</p>
                 <a
                   href="#"
-                  className="inline-flex items-center text-primary-400 hover:text-primary-300 transition-colors"
+                  className="inline-flex items-center text-accent-cyan hover:text-accent-purple transition-colors"
                 >
                   <span className="mr-2">Read More</span>
                   <ArrowRight className="w-4 h-4" />

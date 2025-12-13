@@ -27,6 +27,7 @@ const Navbar = () => {
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
+    { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -48,11 +49,11 @@ const Navbar = () => {
     >
       {/* Glassmorphism backdrop for the unfilled part */}
       {scrolled && (
-        <div className="absolute inset-0 -z-10 backdrop-blur-md" />
+        <div className="absolute inset-0 -z-10" />
       )}
 
       <div className="flex items-center justify-between relative z-10">
-        <a href="#" className={`text-2xl font-bold font-display tracking-tighter transition-colors ${scrolled ? 'text-gray-800' : 'text-white'}`}>
+        <a href="#" className={`text-2xl font-bold font-display tracking-tighter transition-colors ${scrolled ? 'text-dark-bg' : 'text-accent-primary'}`}>
           MA<span className="text-accent-purple">.</span>
         </a>
 
@@ -62,7 +63,7 @@ const Navbar = () => {
             <a
               key={link.name}
               href={link.href}
-              className={`text-sm font-medium transition-colors relative group ${scrolled ? 'text-gray-600 hover:text-accent-purple' : 'text-accent-secondary hover:text-white'}`}
+              className={`text-sm font-medium transition-colors relative group ${scrolled ? 'text-dark-bg/70 hover:text-accent-purple' : 'text-accent-secondary hover:text-accent-primary'}`}
             >
               {link.name}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent-purple transition-all group-hover:w-full"></span>
@@ -72,8 +73,8 @@ const Navbar = () => {
             href="#contact"
             className={`px-5 py-2 rounded-full text-sm font-bold transition-colors ${
               scrolled 
-                ? "bg-gray-900 text-white hover:bg-gray-700" 
-                : "bg-white text-black hover:bg-gray-200"
+                ? "bg-gradient-to-r from-accent-purple to-accent-cyan text-white hover:shadow-lg hover:shadow-accent-purple/50" 
+                : "bg-gradient-to-r from-accent-purple to-accent-cyan text-white hover:shadow-lg hover:shadow-accent-purple/50"
             }`}
           >
             Let's Talk
@@ -96,14 +97,14 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="absolute top-full left-0 right-0 mt-4 p-6 bg-dark-surface/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl md:hidden overflow-hidden"
+            className="absolute top-full left-0 right-0 mt-4 p-6 bg-dark-card/95 backdrop-blur-xl border border-dark-border rounded-2xl shadow-2xl md:hidden overflow-hidden"
           >
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-accent-secondary hover:text-white font-medium transition-colors py-2"
+                  className="text-accent-secondary hover:text-accent-primary font-medium transition-colors py-2"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
@@ -111,7 +112,7 @@ const Navbar = () => {
               ))}
               <a
                 href="#contact"
-                className="px-5 py-3 bg-white text-black rounded-full text-sm font-bold hover:bg-gray-200 transition-colors text-center mt-2"
+                className="px-5 py-3 bg-gradient-to-r from-accent-purple to-accent-cyan text-white rounded-full text-sm font-bold hover:shadow-lg hover:shadow-accent-purple/50 transition-all text-center mt-2"
                 onClick={() => setIsOpen(false)}
               >
                 Let's Talk
