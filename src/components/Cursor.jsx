@@ -57,7 +57,7 @@ const Cursor = () => {
     <>
       {/* Core dot */}
       <motion.div
-        className="fixed w-3 h-3 bg-blue-500 rounded-full pointer-events-none z-50 mix-blend-difference"
+        className="fixed w-3 h-3 bg-accent-cyan rounded-full pointer-events-none z-50 mix-blend-difference"
         style={{
           x: springX,
           y: springY,
@@ -68,7 +68,7 @@ const Cursor = () => {
 
       {/* Outer ring */}
       <motion.div
-        className="fixed w-10 h-10 border-2 border-blue-500 rounded-full pointer-events-none z-50"
+        className="fixed w-10 h-10 border-2 border-accent-purple rounded-full pointer-events-none z-50"
         animate={{ scale: isPointer ? 1.6 : 1 }}
         transition={{
           type: "spring",

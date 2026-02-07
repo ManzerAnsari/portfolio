@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
-import { Code2, Zap, Target } from 'lucide-react';
+import { Icon } from '@iconify/react';
 
 const About = () => {
   const highlights = [
-    { icon: Code2, title: 'Full-Stack Development', desc: 'MERN stack expertise' },
-    { icon: Zap, title: 'Performance', desc: 'Optimized & scalable apps' },
-    { icon: Target, title: 'User-Focused', desc: 'Clean & intuitive design' },
+    { icon: 'mdi:shield-lock', title: 'Auth & Security', desc: 'Access + refresh token flows, protected routes' },
+    { icon: 'mdi:lightning-bolt', title: 'State & Data', desc: 'Redux Toolkit, TanStack Query' },
+    { icon: 'mdi:cellphone-link', title: 'Full Coverage', desc: 'Web design & mobile applications' },
+    { icon: 'mdi:web-socket', title: 'Real-time', desc: 'Socket.io & live features' },
   ];
 
   return (
@@ -37,7 +38,7 @@ const About = () => {
             Full-Stack Developer
           </h2>
           <p className="text-accent-secondary text-lg md:text-xl max-w-3xl mx-auto font-light">
-            3+ years building scalable web applications with modern technologies
+            Let me tell you about me—3 years of MERN stack experience, end to end
           </p>
         </motion.div>
 
@@ -48,10 +49,10 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center"
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
           >
             {/* Left Content */}
-            <div className="space-y-6 md:col-span-2">
+            <div className="space-y-6">
               <div className="space-y-3">
                 <h3 className="text-3xl font-bold text-accent-primary font-display">
                   MERN Stack Specialist
@@ -60,18 +61,17 @@ const About = () => {
               </div>
               
               <p className="text-accent-secondary leading-relaxed text-lg">
-                I'm a full-stack developer with 3+ years of professional experience building scalable web applications. I specialize in MongoDB, Express, React, and Node.js—creating robust backend APIs, dynamic frontends, and seamless user experiences.
+                I'm a MERN stack developer with 3 years of experience. I build everything from protected routes and token-based auth (access + refresh) to real-time apps with sockets, and modern frontends with Redux Toolkit & TanStack Query.
               </p>
               
               <p className="text-accent-secondary leading-relaxed text-lg">
-                My approach combines efficient backend development with modern frontend technologies. I solve complex problems, optimize performance, and deliver clean, maintainable code that scales. Passionate about building powerful yet user-friendly applications.
+                I work across the full stack—backend APIs, responsive design, and mobile applications. From architecture to UI, I cover almost everything needed for solid frontend and backend delivery.
               </p>
             </div>
 
             {/* Right Content - Highlights */}
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {highlights.map((item, index) => {
-                const Icon = item.icon;
                 return (
                   <motion.div
                     key={index}
@@ -87,7 +87,7 @@ const About = () => {
                         className="p-3 bg-gradient-to-br from-accent-purple/20 to-accent-cyan/20 rounded-lg flex-shrink-0"
                         whileHover={{ rotate: 10, scale: 1.1 }}
                       >
-                        <Icon className="w-6 h-6 text-accent-purple" />
+                        <Icon icon={item.icon} className="w-6 h-6 text-accent-purple" />
                       </motion.div>
                       <div>
                         <h4 className="text-accent-primary font-semibold mb-1">

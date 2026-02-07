@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Icon } from '@iconify/react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +27,6 @@ const Navbar = () => {
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -36,7 +35,7 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-6 left-[5%] md:left-1/2 md:-translate-x-1/2 z-50 w-[90%] max-w-2xl rounded-full transition-all duration-300 overflow-hidden ${
+      className={`fixed top-6 left-[5%] md:left-1/2 md:-translate-x-1/2 z-50 w-[90%] max-w-2xl rounded-full transition-all duration-300 ${
         scrolled
           ? "border border-white/20 shadow-lg py-3 px-6"
           : "bg-transparent py-4 px-6"
@@ -73,8 +72,8 @@ const Navbar = () => {
             href="#contact"
             className={`px-5 py-2 rounded-full text-sm font-bold transition-colors ${
               scrolled 
-                ? "bg-gradient-to-r from-accent-purple to-accent-cyan text-white hover:shadow-lg hover:shadow-accent-purple/50" 
-                : "bg-gradient-to-r from-accent-purple to-accent-cyan text-white hover:shadow-lg hover:shadow-accent-purple/50"
+                ? "bg-slate-600 text-white hover:bg-slate-500" 
+                : "bg-slate-600 text-white hover:bg-slate-500"
             }`}
           >
             Let's Talk
@@ -86,7 +85,7 @@ const Navbar = () => {
           className={`md:hidden transition-colors ${scrolled ? 'text-gray-800' : 'text-white'}`}
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <Icon icon="mdi:close" className="w-6 h-6" /> : <Icon icon="mdi:menu" className="w-6 h-6" />}
         </button>
       </div>
 
@@ -97,7 +96,7 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="absolute top-full left-0 right-0 mt-4 p-6 bg-dark-card/95 backdrop-blur-xl border border-dark-border rounded-2xl shadow-2xl md:hidden overflow-hidden"
+            className="absolute top-full left-0 right-0 mt-4 p-6 bg-dark-card/95 backdrop-blur-xl border border-dark-border rounded-2xl shadow-2xl md:hidden z-50"
           >
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
@@ -112,7 +111,7 @@ const Navbar = () => {
               ))}
               <a
                 href="#contact"
-                className="px-5 py-3 bg-gradient-to-r from-accent-purple to-accent-cyan text-white rounded-full text-sm font-bold hover:shadow-lg hover:shadow-accent-purple/50 transition-all text-center mt-2"
+                className="px-5 py-3 bg-slate-600 text-white rounded-full text-sm font-bold hover:bg-slate-500 transition-colors text-center mt-2"
                 onClick={() => setIsOpen(false)}
               >
                 Let's Talk

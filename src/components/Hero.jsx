@@ -1,6 +1,6 @@
 import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { Icon } from "@iconify/react";
 import Scene from "./Scene";
 
 const Hero = () => {
@@ -70,10 +70,10 @@ const Hero = () => {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-3 md:gap-4 animate-fade-in-up pointer-events-auto">
           <a
             href="#projects"
-            className="group relative px-6 md:px-8 py-2.5 md:py-3 bg-gradient-to-r from-accent-purple to-accent-cyan text-white font-semibold rounded-full hover:shadow-lg hover:shadow-accent-purple/50 transition-all duration-300 flex items-center gap-2 w-full sm:w-auto justify-center"
+            className="group relative px-6 md:px-8 py-2.5 md:py-3 bg-slate-600 text-white font-semibold rounded-full hover:bg-slate-500 transition-colors flex items-center gap-2 w-full sm:w-auto justify-center"
           >
             View Work
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <Icon icon="mdi:arrow-right" className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
           <a
             href="#contact"
@@ -85,26 +85,34 @@ const Hero = () => {
 
         <div className="mt-8 md:mt-12 flex items-center justify-start gap-4 md:gap-6 text-accent-muted pointer-events-auto">
           <a
-            href="https://github.com"
+            href="https://github.com/ManzerAnsari"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-accent-cyan transition-colors transform hover:scale-110 duration-300"
           >
-            <Github className="w-5 h-5 md:w-6 md:h-6" />
+            <Icon icon="mdi:github" className="w-5 h-5 md:w-6 md:h-6" />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/manzer-ansari-831881263"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-accent-blue transition-colors transform hover:scale-110 duration-300"
           >
-            <Linkedin className="w-5 h-5 md:w-6 md:h-6" />
+            <Icon icon="mdi:linkedin" className="w-5 h-5 md:w-6 md:h-6" />
           </a>
           <a
-            href="mailto:hello@example.com"
+            href="mailto:manzeransari2@gmail.com"
             className="hover:text-accent-pink transition-colors transform hover:scale-110 duration-300"
           >
-            <Mail className="w-5 h-5 md:w-6 md:h-6" />
+            <Icon icon="mdi:email" className="w-5 h-5 md:w-6 md:h-6" />
+          </a>
+          <a
+            href="https://wa.me/917262027692?text=Hello%20Manzer!%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect%20with%20you."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-green-400 transition-colors transform hover:scale-110 duration-300"
+          >
+            <Icon icon="mdi:whatsapp" className="w-5 h-5 md:w-6 md:h-6" />
           </a>
         </div>
       </div>

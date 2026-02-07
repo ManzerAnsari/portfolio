@@ -13,14 +13,14 @@ const PortfolioLoader = ({ onLoadComplete }) => {
           setTimeout(() => {
             setIsComplete(true);
             if (onLoadComplete) {
-              setTimeout(onLoadComplete, 500);
+              setTimeout(onLoadComplete, 300);
             }
-          }, 300);
+          }, 150);
           return 100;
         }
-        return prev + Math.random() * 20;
+        return prev + Math.random() * 35;
       });
-    }, 120);
+    }, 80);
 
     return () => clearInterval(interval);
   }, [onLoadComplete]);
@@ -35,7 +35,7 @@ const PortfolioLoader = ({ onLoadComplete }) => {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"
           >
             {/* Subtle background glow */}
